@@ -1,0 +1,57 @@
+<!-- html5 형식이라는걸 명시함 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--  장치의 너비에 맞게 웹 페이지의 너비를 자동으로 조정하고, 페이지를 처음 로드할 때 확대/축소 비율을 1로 유지하여 모바일 장치에서 최적의 화면 표시를 가능하게 함 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style type="text/css">
+        button {
+            background-color: #4CAF50;
+            color: black;
+            /* padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%; */
+        }
+        /* input{
+            width: 100%;
+        }
+        div{
+            margin: 10px 10px;
+        } */
+        #divid, #divpw{
+            margin: 10px 10px;
+        }
+        #lblid{
+            color: red;
+        }
+        #lblpw{
+            color: blue;
+        }
+        #userid ,#userpw{
+            width: 100%;
+        }
+        #login{
+            float: right;
+            background: red;
+            color: white;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="account">
+        <label id="lblid">아이디</label>
+        <input type="text" class="write">
+    </div>
+    <div class="account">
+        <label id="lblpw">비밀번호</label>
+        <input type="password" class="write">
+    </div>
+    <button type="submit"></button>
+</body>
+</html>
