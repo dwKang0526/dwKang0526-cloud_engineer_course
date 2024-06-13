@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+
+</head>
+<body>
+    <button onclick="alert('버튼 클릭')">버튼</button>
+
+    <!-- msg() 함수 연결함, 호출은 클릭했을때 됨. -->
+    <button onclick="msg('변우석')">버튼1</button>
+
+    <button id="btn">전송버튼2</button>
+
+    <script>
+        function msg(name) {
+            alert(name);
+        }
+
+        // ---------------------------------------------------------
+        // btn.onclick =
+        //     function msg() {
+        //         alert('안녕');
+        //     }
+
+        // ---------------------------------------------------------
+
+        // arg1 이벤트 이름, arg2 이벤트 리스터
+        btn.addEventListener('click', function () {
+            alert('두 번째 메세지');
+        });
+
+        function first() {
+                alert('첫 번째 메세지');
+         }
+
+
+        btn.addEventListener('click', first);
+
+    </script>
+    
+</body>
+</html>
