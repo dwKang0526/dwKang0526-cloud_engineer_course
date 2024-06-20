@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+      // dom에 메모리가 다 올라가고 준비가 다 되면 콜백함수 실행
+      $(document).ready(function() {
+        // btn.addEventListener('click', function() {
+        //   alert('hi');
+        // });
+
+        // [코드 단순화]
+        // [버튼 태그 tkdyd]
+        // $('button').click(() => alert('hi'));
+        // [- id 사용]
+        $('#btn').click(() => alert('hi'));
+        // [- class 사용]
+        // $('.btn-a').click(() => alert('hi'));
+
+        $('.btn-a').click(function() {
+          $.ajax({
+              url: 'http://127.0.0.1:8080/delete',
+              type: 'post',
+              data: {
+                id: 1
+              }
+            })
+            .done(function(result) {})
+            .fail(function(xhr, textStatus, err) {});
+        });
+      });
+
+      // $(document).ready 없이 alert 만 실행했을때
+      // <script>$(document).ready(function() { alert() });<script> 를 body 에 넣었을 때 순서
+    </script>
+
+  </head>
+  <body>
+    hi
+    <button id="btn" class="btn-a">전송</button>
+    <button id="btn" class="btn-a">전송</button>
+    <button id="btn" class="btn-c">전송</button>
+  </body>
+</html>
