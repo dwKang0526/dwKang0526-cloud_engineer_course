@@ -4,7 +4,6 @@ const app = express();
 const bodyParser = require('body-parser');
 // extended : 중첩된 객체표현을 허용할지 말지를 정하는 것이다. 
 // true면 중첩된 객체표현을 허용한다.
-bodyParser.urlencoded({extended: true}); // post 방식으로 넘어온 데이터를 해석해줌
 app.use(bodyParser.urlencoded({extended: true})); // post 방식으로 넘어온 데이터를 해석해줌
 
 // app.set('views', path.join(__dirname, '폴더명'));
