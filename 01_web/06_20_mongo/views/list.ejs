@@ -63,7 +63,7 @@
         let item = $(this);
         // e.target : event 가 벌어진 대상 소스
         // let sid = e.target.dataset.id;
-        let _id = e.target.dataset._id;
+        let _id = $(this).data('id'); // data-id를 가져옴
         $.ajax({
             type: 'post',
             url: '/delete',
