@@ -53,14 +53,14 @@ app.get('/list', function(req, res) {
     });
 });
 
-// 라우팅
+// [라우팅]
 app.get("/enter", function(req, res) {
     // __dirname : 현재 실행중인 파일의 경로
     // res.sendFile(__dirname + '/enter.html');
     res.render('enter.ejs');
 });
 
-// insertOne 안에는 객체가 들어가야 함
+
 app.post('/save', (req, res) => {
     // console.log("someDate : "+req.body.someDate);
     mydb
@@ -102,17 +102,6 @@ app.post('/delete', (req, res) => {
 });
 
 
-// app.get('/content/:_id', (req, res) => {
-//     mydb.collection('post')
-//     .findOne({_id: new ObjectId(req.params._id)})
-//     .then(result => {
-//         res.render('content.ejs', {data:result}); // data라는 이름으로 result를 넘겨줌
-//     })
-//     .catch();
-//     res.status(500).send();
-// });
-
-
 app.get('/content/:_id', (req, res) => {
     mydb.collection('post')
     .findOne({ _id: new ObjectId(req.params._id) })
@@ -131,7 +120,6 @@ app.get('/content/:_id', (req, res) => {
 
 
 app.get('/edit/:_id', (req, res) => {
-    // console.log(req.params._id);
     mydb.collection('post')
         .findOne({ _id: new ObjectId(req.params._id) })
         .then(result => {
@@ -150,10 +138,19 @@ app.get('/edit/:_id', (req, res) => {
 
 app.post('/edit', (req, res) => {
     // console.log(req.body);
+    
+    // 업데이트할 데이터 정의
+    const updateData = {
+        title: req.body.title, 
+        content: req.body.content, 
+        date: req.body.someDate
+    };
+
     mydb.collection('post')
-    // {조건}, {변경 데이터}
-        .updateOne({_id: new ObjectId(req.body._id)},
-             { $set:{title: req.body.title, content: req.body.content, date: req.body.somdDate} }) 
+        .updateOne(
+            {_id: new ObjectId(req.body._id)}, // 조건
+            { $set: updateData} // 변경 데이터
+        ) 
         .then(result => {
             console.log('수정 완료');
             res.redirect('/list'); // 수정이 완료되면 list로 이동
@@ -165,44 +162,6 @@ app.post('/edit', (req, res) => {
         });
 });
 
-// app.get('/edit/:_id', (req, res) => {
-//     console.log(req.params._id);
-//     mydb.collection('post')
-//         .findOne({ _id: new ObjectId(req.params._id) })
-//         .then(result => {
-//             res.render('edit.ejs', { data: result }); // data라는 이름으로 result를 넘겨줌
-//         })
-//         .catch(err => {
-//             console.error(err);
-//             res.status(500).send('서버 에러');
-//         });
-//     res.render('edit.ejs');
-// });
-
-
-
-
-
-// app.post('/delete', (req, res) => {
-//     req.body._id = new ObjectId(req.body._id);
-
-//     mydb.collection('post')
-//         .deleteOne(req.body)
-//         // delete한 결과
-//         .then(result => {
-//             console.log('삭제 완료'); 
-//             res.status(200).send();
-//         })
-//         .catch(err => {
-//             console.error(err); 
-//             res.status(500).send('서버 에러');
-//         });
-// });
-
 // express 위치가 DB 설정 위? 아래?
 // 1. express가 위 : 
 // 2. express가 아래 : 
-
-
-
-// mydb 설정 
