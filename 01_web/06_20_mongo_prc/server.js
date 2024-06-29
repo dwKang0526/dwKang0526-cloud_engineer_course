@@ -120,7 +120,6 @@ app.get('/content/:_id', (req, res) => {
 
 
 app.get('/edit/:_id', throttle({ "burst": 1, "period": "20s" }), (req, res) => {
-    // console.log(req.params._id);
     mydb.collection('post')
         .findOne({ _id: new ObjectId(req.params._id) })
         .then(result => {
@@ -138,11 +137,19 @@ app.get('/edit/:_id', throttle({ "burst": 1, "period": "20s" }), (req, res) => {
 
 
 app.post('/edit', (req, res) => {
-    // console.log(req.body);
+
+    // 변경 데이터
+    const updateData = {
+        title: req.body.title, 
+        content: req.body.content, 
+        date: req.body.somdDate
+    };
+
     mydb.collection('post')
-    // {조건}, {변경 데이터}
-        .updateOne({_id: new ObjectId(req.body._id)},
-             { $set:{title: req.body.title, content: req.body.content, date: req.body.somdDate} }) 
+        .updateOne(
+            {_id: new ObjectId(req.body._id)}, // 조건
+            { $set: updateData}
+        ) 
         .then(result => {
             console.log('수정 완료');
             res.redirect('/list'); // 수정이 완료되면 list로 이동

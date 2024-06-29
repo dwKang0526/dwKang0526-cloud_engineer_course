@@ -100,7 +100,7 @@ app.post('/delete', (req, res) => {
         });
 });
 
-
+// 상세 페이지로 이동
 app.get('/content/:_id', (req, res) => {
     mydb.collection('post')
     .findOne({ _id: new ObjectId(req.params._id) })
@@ -117,7 +117,7 @@ app.get('/content/:_id', (req, res) => {
     });
 });
 
-
+// 수정 페이지로 이동
 app.get('/edit/:_id', (req, res) => {
     mydb.collection('post')
         .findOne({ _id: new ObjectId(req.params._id) })
@@ -134,7 +134,7 @@ app.get('/edit/:_id', (req, res) => {
         });
 });
 
-
+// 수정
 app.post('/edit', (req, res) => {
     // console.log(req.body);
     
