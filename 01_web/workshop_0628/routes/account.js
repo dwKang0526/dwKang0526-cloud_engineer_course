@@ -20,8 +20,6 @@ const alarm = {
     'InsufficientBalance': 'AR004'
 };
 
-
-
 // 사용자의 계좌 정보 조회
 router.get('/account', sessionChecker, async (req, res) => { 
     const { mysqldb } = await setup();
@@ -76,29 +74,6 @@ const generateAccountNumber = (userId, accountType) => {
 
     return accountNumber;
 };
-
-
-// 계좌 추가
-// router.post('/account/add', sessionChecker, async (req, res) => {
-//     const { mysqldb } = await setup();
-    
-//     // 계좌번호 생성
-//     const accountNumber = generateAccountNumber(req.session.user.user_id, req.body.accountType);
-
-//     const { accountType, initialBalance } = req.body;
-//     const userId = req.session.user.user_id;
-
-//     const sql = 'INSERT INTO Accounts (user_id, account_number, balance, account_type) VALUES (?, ?, ?, ?)';
-//     mysqldb.query(sql, [userId, accountNumber, initialBalance, accountType], (err, result) => {
-//         if (err) {
-//             console.log(err);
-//             res.status(500).send();
-//         } else {
-//             res.render('accounts.ejs', {data: {alertCode: alarm.accountAdded}});
-//             // res.redirect('/accounts');
-//         }
-//     });
-// });
 
 
 

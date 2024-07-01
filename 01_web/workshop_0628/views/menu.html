@@ -4,11 +4,11 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <span id="loginSpan">
-        <!-- Adjusted form action to match existing routes -->
-        <form action="/login" method="post">
-          <!-- Changed input sizes for better alignment -->
-          ID <input size="8" name="userid">
-          PW <input size="8" name="userpw">
+        <!-- 경로 수정 -->
+        <form action="/auth/login" method="post">
+          <!-- name 변경! -->
+          ID <input size="3" name="user_id">
+          PW <input size="3" name="password">
           <input type="submit" value="login" class="btn btn-outline-info">
         </form>
       </span>
@@ -23,13 +23,13 @@
           <a class="nav-link active" aria-current="page" href="/">메인화면</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/signup">회원가입</a>
+          <a class="nav-link" href="/auth/signup">회원가입</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/profile">사용자 정보 확인</a>
+          <a class="nav-link disabled logined" href="/profile">사용자 정보 확인</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/account">계좌정보 확인</a>
+          <a class="nav-link disabled logined" href="/account">계좌정보 확인</a>
         </li>
       </ul>
     </div>
@@ -37,26 +37,30 @@
 </nav>
 <p></p>
 
-<!-- Bootstrap and jQuery scripts -->
+<!-- 부트스트랩 라이브러리 : 네브바에 해놓는다면 각 페이지마다 라이브러리를 연결 안해도 된다. -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+<!-- 제이쿼리 기본 라이브러리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<!-- 제이쿼리 쿠키 라이브러리 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
 <script>
-  // Check for the uid cookie
-  const uid = $.cookie('uid');
+  // NavBar 가 있는 곳은 항상 실행된다.
+  // 웹 브라우저 메모리에 uid 쿠키가 있는 지 확인
+  const uid = $.cookie('uid'); // 쿠키에서 uid 를 찾아서 가져온다. 있으면 가져오고, 없으면 null 로 가져온다.
 
-  // If the uid cookie is present, show logout button and enable additional links
+  // uid 쿠키가 있는 것이 확인된다면, 로그아웃 버튼이 보이게 할 것이다.
   if (uid) {
     $(".logined").removeClass("disabled");
-    $('#loginSpan').html(`${uid} <button class="btn btn-outline-info" onclick="logout()">logout</button>`);
+    $('#loginSpan').html(`${uid} <button onclick = 'logout()'>logout</button>`);
   }
 
   function logout() {
     $.removeCookie('uid', {
       path: '/'
-    });
-    location.href = "/logout";
+    }); // $의 내장 모듈 : removeCookie
+    location.href = "/auth/logout";
   }
 </script>

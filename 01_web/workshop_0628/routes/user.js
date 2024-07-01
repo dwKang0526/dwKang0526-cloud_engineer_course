@@ -6,7 +6,8 @@ router.get('/profile', async (req, res) => {
   if (req.session.user) {
     const { mysqldb } = await setup();
     const sql = 'SELECT * FROM Users WHERE user_id = ?';
-    mysqldb.query(sql, [req.session.user.userid], (err, rows) => {
+
+    mysqldb.query(sql, [req.session.user.user_id], (err, rows) => {
       if (err) throw err;
       if (rows.length > 0) {
         res.render('profile.ejs', { user: rows[0] });
@@ -19,7 +20,7 @@ router.get('/profile', async (req, res) => {
   }
 });
 
-router.post('/profile/edit', (req, res) => {
+router.post('/profile/edit', async (req, res) => {
   if (req.session.user) {
     const updatedUser = { 
       name: req.body.username,
@@ -28,9 +29,9 @@ router.post('/profile/edit', (req, res) => {
       email: req.body.useremail,
       address: req.body.address
     };
-    const { mysqldb } = setup();
+    const { mysqldb } = await setup();
     const sql = 'UPDATE Users SET ? WHERE user_id = ?';
-    mysqldb.query(sql, [updatedUser, req.session.user.userid], (err, result) => {
+    mysqldb.query(sql, [updatedUser, req.session.user.user_id], (err, result) => {
       if (err) throw err;
       res.redirect('/profile');
     });
