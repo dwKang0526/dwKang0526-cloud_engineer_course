@@ -18,17 +18,27 @@ const upload = multer({ storage });
 
 // 게시물 검색 기능
 router.get("/post/search", async (req, res) => {
-  console.log("req.query.value : ",req.query.value);
+  // console.log("req.query.value : ",req.query.value);
+  if(req.session.user){
+    const { mongodb } = await setup();
 
-  const { mongodb } = await setup();
+    mongodb
+      .collection("post")
+      // .find({ title: req.query.value }).toArray()
+      .find({ title: { $regex: new RegExp(req.query.value, 'i') } }).toArray()
+      .then((result) => {
+        console.log(result);
+        res.render("post/sresult.ejs", { data: result });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.render("index.ejs", { data: { alertMsg: "서버오류: 잠시 뒤 다시 시도 해주세요" } });
+    });
+  } else {
+    res.render("index.ejs", { data: { alertMsg: "로그인 먼저 해주세요" } });
+  }
 
-  mongodb
-    .collection("post")
-    .find({ title: req.query.value }).toArray()
-    .then((result) => {
-      console.log(result);
-      res.render("post/sresult.ejs", { data: result });
-  });
+  
 });
 
 // router.get("/post/search", async (req, res) => {
